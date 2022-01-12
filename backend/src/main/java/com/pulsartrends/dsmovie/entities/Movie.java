@@ -1,9 +1,13 @@
 package com.pulsartrends.dsmovie.entities;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -12,19 +16,20 @@ public class Movie {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long Id;
+	private long id;
 	private String title;
 	private Double score;
 	private Integer count;
 	private String image;
 
+	@OneToMany(mappedBy = "id.movie")
+	private Set<Score> scores = new HashSet<>();
 	
 	public Movie() {
 	}
 
-
 	public Movie(long id, String title, Double score, Integer count, String image) {
-		Id = id;
+		this.id = id;
 		this.title = title;
 		this.score = score;
 		this.count = count;
@@ -33,12 +38,12 @@ public class Movie {
 
 
 	public long getId() {
-		return Id;
+		return id;
 	}
 
 
 	public void setId(long id) {
-		Id = id;
+		this.id = id;
 	}
 
 
@@ -80,8 +85,11 @@ public class Movie {
 	public void setImage(String image) {
 		this.image = image;
 	}
-	
-	
+
+
+	public Set<Score> getScores() {
+		return scores;
+	}
 	
 	
 }
